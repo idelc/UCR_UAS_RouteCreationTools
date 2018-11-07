@@ -9,7 +9,7 @@ This will make it simpler to break the tasks up into small easy to test segments
 
 * Route file format: text file containing a full route as used in [MavProxy](https://github.com/ArduPilot/MAVProxy/blob/master/MAVProxy/modules/mavproxy_wp.py). Its not documented any one place so its is nessisary to RE the format from the code.
 
-* Obstacle file format: text file storing the obstacles that must be avoided.
+* Obstacle file format: text file storing the obstacles that must be avoided. Defined in obstacles.md
          
 * `combine ./in0.txt ./in1.txt ./out.txt`: Take in two routes and merges them into one valid route.
 
