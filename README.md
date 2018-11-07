@@ -15,6 +15,6 @@ This will make it simpler to break the tasks up into small easy to test segments
 
 * `safeRoute ./Obst.txt ./route.txt ./out.txt`: Takes a list of obstacles and a route. It creates from these a route that still hits all waypoints in `route.txt` but no longer collides with any obstical in `Obst.txt`.
 
-* `scanRoute [Options] ./out.txt`: based on '[Options]', generates a route to scan the ADLC search area. Options would include things such as scan height, scan speed, ect.
+* `scanRoute [Options] ./out.txt`: based on `[Options]`, generates a route to scan the ADLC search area. Options would include things such as scan height, scan speed, ect.
 
 * Upload: MavProxy will be used to upload the finished route file to the UAV.
