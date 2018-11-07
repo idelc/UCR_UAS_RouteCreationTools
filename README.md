@@ -11,8 +11,10 @@ This will make it simpler to break the tasks up into small easy to test segments
 
 * Obstacle file format: text file storing the obstacles that must be avoided.
          
-* `combine in0.txt in1.txt out.txt`: Take in two routes and merges them into one valid route.
+* `combine ./in0.txt ./in1.txt ./out.txt`: Take in two routes and merges them into one valid route.
 
-* `safeRoute Obst.txt route.txt out.txt`: Takes a list of obstacles and a route. It creates from these a route that still hits all waypoints in `route.txt` but no longer collides with any obstical in `Obst.txt`.
+* `safeRoute ./Obst.txt ./route.txt ./out.txt`: Takes a list of obstacles and a route. It creates from these a route that still hits all waypoints in `route.txt` but no longer collides with any obstical in `Obst.txt`.
+
+* `scanRoute [Options] ./out.txt`: based on '[Options]', generates a route to scan the ADLC search area. Options would include things such as scan height, scan speed, ect.
 
 * Upload: MavProxy will be used to upload the finished route file to the UAV.
