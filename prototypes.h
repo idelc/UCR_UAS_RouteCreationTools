@@ -26,4 +26,4 @@ std::list<point> subdivideCircle(obstical, int numPoints);
 
 std::vector<collision> detect(std::list<waypoint> originalRoute, std::vector<obstical> obsticals);
 
-
+vector<obstical> readObsticals(String filename);
