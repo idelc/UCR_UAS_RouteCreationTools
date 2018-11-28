@@ -1,0 +1,31 @@
+//Assuming number of div.(variable n) >= 3
+
+                   //x,y vals;       radius; #of sides for poly.
+std::list&& circle(const point o, const double r, const int n) {
+   std::list<point> points;
+   point pt;
+   for(int i = 0; i < n; ++i) {
+      pt.log = r * std::cos(((2 * PI) / n) * i) + o.log;
+      pt.lat = r * std::sin(((2 * PI) / n) * i) + o.lat;
+      points.push_front(pt);
+   }
+   return std::move(points);
+}
+
+
+
+
+//----------------------------------------------------------
+
+// the code that involves "list" was done with what info
+// google provided please check when possible
+
+// In English: given the center of the obstacle,
+// its radius, and the number of points we want
+// this function will create and return a list 
+// of said points
+// this shoudl be in clockwise order,
+// the lat and log of the point will be used
+// to find the geographical loc. of the points
+// and not just their relation to the circle (which was
+// found using simple trig.)
