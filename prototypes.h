@@ -54,3 +54,4 @@ std::vector<collision> detect(std::list<waypoint> originalRoute, std::vector<obs
     }
     return collisions;
 }
+vector<obstacles> readObstacles(String filename);
