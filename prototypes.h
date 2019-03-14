@@ -23,7 +23,7 @@ struct collision {          //is the object that defines a detected collision
 };
 
 
-std::list<point> subdivideCircle(const obstacle, int numPoints);
+std::list<point>&& subdivideCircle(const obstacle, int numPoints);
 
 std::vector<collision> detect(std::list<waypoint> originalRoute, std::vector<obstacle> obstacles);
 
