@@ -1,12 +1,16 @@
+#include "prototypes.h"
+#include <cstdlib>
+#include <cmath>
+#include <list>
 //Assuming number of div.(variable n) >= 3
 
                    //x,y vals;       radius; #of sides for poly.
-std::list&& circle(const point o, const double r, const int n) {
+std::list<point>&& subdivideCircle(const obstacle o, int n) {
    std::list<point> points;
    point pt;
    for(int i = 0; i < n; ++i) {
-      pt.log = r * std::cos(((2 * PI) / n) * i) + o.log;
-      pt.lat = r * std::sin(((2 * PI) / n) * i) + o.lat;
+      pt.log = o.radius * std::cos(((2 * M_PI) / n) * i) + o.log;
+      pt.lat = o.radius * std::sin(((2 * M_PI) / n) * i) + o.lat;
       points.push_front(pt);
    }
    return std::move(points);
@@ -17,10 +21,7 @@ std::list&& circle(const point o, const double r, const int n) {
 
 //----------------------------------------------------------
 
-// the code that involves "list" was done with what info
-// google provided please check when possible
-
-// In English: given the center of the obstacle,
+// Given the center of the obstacle,
 // its radius, and the number of points we want
 // this function will create and return a list 
 // of said points
