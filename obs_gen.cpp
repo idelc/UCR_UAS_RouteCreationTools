@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <list>
+
 //Assuming number of div.(variable n) >= 3
 
                    //x,y vals;       radius; #of sides for poly.
