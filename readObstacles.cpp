@@ -1,4 +1,12 @@
-vector<obstacles> readObstacles(String filename) {
+#include <vector>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+#include "prototypes.h"
+
+vector<obstacle> readObstacles(string filename) {
    obstacle temp; 
    vector<obstacle> temps;
    ifstream read(filename.c_str());
@@ -14,5 +22,5 @@ vector<obstacles> readObstacles(String filename) {
       temp.radius = rad; 
       temps.push_back(temp); //adds to vector
    }
-   return temps; 
+   return temps;
 }

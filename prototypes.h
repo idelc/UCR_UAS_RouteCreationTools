@@ -26,4 +26,4 @@ std::list<point> subdivideCircle(obstacle, int numPoints);
 
 std::vector<collision> detect(std::list<waypoint> originalRoute, std::vector<obstacle> obstacles);
 
-vector<obstacles> readObstacles(String filename);
+vector<obstacle> readObstacles(string filename);
