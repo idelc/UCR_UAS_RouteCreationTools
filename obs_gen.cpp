@@ -6,7 +6,7 @@
 //Assuming number of div.(variable n) >= 3
 
                    //x,y vals;       radius; #of sides for poly.
-std::list<point>&& subdivideCircle(const obstacle o, int n) {
+std::list<point> subdivideCircle(const obstacle o, int n) {
    std::list<point> points;
    point pt;
    for(int i = 0; i < n; ++i) {
@@ -14,7 +14,7 @@ std::list<point>&& subdivideCircle(const obstacle o, int n) {
       pt.lat = o.radius * std::sin(((2 * M_PI) / n) * i) + o.lat;
       points.push_front(pt);
    }
-   return std::move(points);
+   return points;
 }
 
 
