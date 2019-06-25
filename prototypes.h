@@ -29,4 +29,6 @@ std::vector<collision> detect(std::list<waypoint> originalRoute, std::vector<obs
 
 std::vector<obstacle> readObstacles(std::string filename);
 
+std::vector<obstacle> readObstacles2(std::string filename);
+
 std::vector<point> readPoints(std::string fileName);

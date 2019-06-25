@@ -8,7 +8,7 @@ using namespace std;
 
 #include "prototypes.h"
 
-vector<obstacle> readObstacles(string filename) {
+vector<obstacle> readObstacles(string fileName) {
    obstacle temp; 
    vector<obstacle> temps;
    ifstream read(filename);
@@ -18,18 +18,29 @@ vector<obstacle> readObstacles(string filename) {
       exit(1); 
    }
 
-   // double la;//reads in lattitude val
-   // double lo;//reads in longitude val
-   // int   rad;//reads in radius
-   // char  com;//will trash commas
+   double la;//reads in lattitude val
+   double lo;//reads in longitude val
+   int   rad;//reads in radius
+   char  com;//will trash commas
    
-   // while(read >> la >> com >> lo >> com >> rad) {//uses inherent boolean
-   //    temp.lat    = la;
-   //    temp.log    = lo; //reads in val
-   //    temp.radius = rad; 
-   //    temps.push_back(temp); //adds to vector
-   // }
-   // return temps;
+   while(read >> la >> com >> lo >> com >> rad) {//uses inherent boolean
+      temp.lat    = la;
+      temp.log    = lo; //reads in val
+      temp.radius = rad; 
+      temps.push_back(temp); //adds to vector
+   }
+   return temps;
+}
+
+vector<obstacle> readObstacles2(string fileName){
+   obstacle temp; 
+   vector<obstacle> temps;
+   ifstream read(fileName);
+
+   if(!read.is_open()){
+      cout << "Error opening file" << endl;
+      exit(1); 
+   }
 
    double deg;//reads in degrees
    double min;//reads in minutes
