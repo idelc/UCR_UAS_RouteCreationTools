@@ -11,7 +11,7 @@ using namespace std;
 vector<obstacle> readObstacles(string fileName) {
    obstacle temp; 
    vector<obstacle> temps;
-   ifstream read(filename);
+   ifstream read(fileName);
 
    if(!read.is_open()){
       cout << "Error opening file" << endl;
