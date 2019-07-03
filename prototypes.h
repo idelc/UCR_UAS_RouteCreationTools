@@ -5,6 +5,7 @@
 struct point{               //specifies a point in space in decimal degrees
 	double lat;
 	double log;
+    double height;
 };
 
 struct waypoint : public point{
@@ -13,7 +14,6 @@ struct waypoint : public point{
 
 struct obstacle : public point{
     double radius;
-    double height;
 };
 
 struct collision {          //is the object that defines a detected collision
