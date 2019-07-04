@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
 
 using namespace std;
 
@@ -111,3 +112,18 @@ vector<point> readPoints(string fileName){
    return temps;
 }
 
+bool colides(const point toCheck, vector<obstacle> obstacles){
+   double x = 0, y = 0;
+   x = toCheck.log;
+   y = toCheck.lat;
+   double h = 0, k = 0, r = 0;
+   for(unsigned i = 0; i < obstacles.size(); ++i){
+      h = obstacles.at(i).log;
+      k = obstacles.at(i).lat;
+      r = obstacles.at(i).radius;
+      if(sqrt(x-h) + sqrt(y-k) == sqrt(r)){
+         return true;
+      }
+   }
+   return false; 
+}
