@@ -31,3 +31,5 @@ std::vector<obstacle> readObstacles(std::string filename);
 std::vector<obstacle> readObstacles2(std::string filename);
 
 std::vector<point> readPoints(std::string fileName);
+
+std::bool colides(const point, vector<obstacle>);
