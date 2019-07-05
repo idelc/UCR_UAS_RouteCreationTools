@@ -30,6 +30,8 @@ std::vector<obstacle> readObstacles(std::string filename);
 
 std::vector<obstacle> readObstacles2(std::string filename);
 
-std::vector<point> readPoints(std::string fileName);
+std::list<point> readPoints(std::string fileName);
 
 bool colides(const point, vector<obstacle>);
+
+void routeCreation

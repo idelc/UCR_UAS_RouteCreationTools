@@ -74,9 +74,9 @@ vector<obstacle> readObstacles2(string fileName){
    return temps;
 }
 
-vector<point> readPoints(string fileName){
+std::list<point> readPoints(string fileName){
    point temp; 
-   vector<point> temps;
+   list<point> temps;
    ifstream read(fileName);
 
    if(!read.is_open()) {
@@ -121,7 +121,7 @@ bool colides(const point toCheck, vector<obstacle> obstacles){
       h = obstacles.at(i).log;
       k = obstacles.at(i).lat;
       r = obstacles.at(i).radius;
-      if(sqrt(x-h) + sqrt(y-k) == sqrt(r)){
+      if(sqrt(x-h) + sqrt(y-k) <= sqrt(r)){
          return true;
       }
    }

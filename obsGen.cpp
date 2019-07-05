@@ -10,8 +10,8 @@ std::list<point> subdivideCircle(const obstacle o, int n) {
    std::list<point> points;
    point pt;
    for(int i = 0; i < n; ++i) {
-      pt.log = o.radius * std::cos(((2 * M_PI) / n) * i) + o.log;
-      pt.lat = o.radius * std::sin(((2 * M_PI) / n) * i) + o.lat;
+      pt.log = o.radius * cos(((2 * M_PI) / n) * i) + o.log;
+      pt.lat = o.radius * sin(((2 * M_PI) / n) * i) + o.lat;
       points.push_front(pt);
    }
    return points;
