@@ -4,10 +4,14 @@
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
 #include "prototypes.h"
+
+double EXTRA_FEET_TO_ROUTE = 0; // TODO: Add real value to 
+                                // acount for wingspan and turn radius
 
 vector<obstacle> readObstacles(string fileName) {
    obstacle temp; 
@@ -112,7 +116,7 @@ std::list<point> readPoints(string fileName){
    return temps;
 }
 
-bool colides(const point toCheck, vector<obstacle> obstacles){
+int colides(const point toCheck, vector<obstacle> obstacles){
    double x = 0, y = 0;
    x = toCheck.log;
    y = toCheck.lat;
@@ -121,13 +125,77 @@ bool colides(const point toCheck, vector<obstacle> obstacles){
       h = obstacles.at(i).log;
       k = obstacles.at(i).lat;
       r = obstacles.at(i).radius;
-      if(sqrt(x-h) + sqrt(y-k) <= sqrt(r)){
-         return true;
+      if(pow((x-h), 2) + pow((y-k), 2) <= pow(r, 2)){
+         return i;
       }
    }
-   return false; 
+   return 0; 
 }
 
-void routeCreation(list<point> posiblePoints, list<obstacle> obstacles, std::string fileName){
+double distanceFt(point one, point two){
+   // Using Haversine formula in order to acount for curvature
+   // likely irrelevant due to actual distances but included just in case
+   // Note: in the case of resource concervation being an issue, this is one place
+   // to consider slimming 
+   double distLat = (two.lat - one.lat) * M_PI / 180.0; 
+   double distLon = (two.log - one.log) * M_PI / 180.0; 
+  
+   // convert to radians 
+   double lat1 = (one.lat) * M_PI / 180.0; 
+   double lat2 = (two.lat) * M_PI / 180.0; 
 
+   // formula
+   double a = pow(sin(distLat / 2), 2) +  
+      pow(sin(distLon / 2), 2) * cos(lat1) * cos(lat2); 
+   double rad = 20925197 ; // ft. rad of earth 
+   double c = 2 * asin(sqrt(a)); // asin == arcsine
+   return rad * c; 
+}
+
+point midpoint(point one, point two){
+   point mid;
+   mid.lat = (one.lat + two.lat) / 2;
+   mid.log = (one.log + two.log) / 2;
+   return mid;
+}
+
+vector<point> shortRouteGraph(point one, point two, obstacle obs){
+
+}
+
+void routeCreation(list<point> posiblePoints, vector<obstacle> obstacles, string fileName){
+   ofstream write(fileName);
+   if(!write.is_open()){
+      cout << "Error opening route output file" << endl;
+      exit(1);
+   }
+   
+   int count = 1;
+   point wayOne, wayTwo;
+   queue<waypoint> waypoints;
+   vector<point> tempList;
+   for(unsigned i = 0; i < posiblePoints.size(); ++i){
+      wayOne = posiblePoints.front();
+      posiblePoints.pop_front();
+      wayTwo = posiblePoints.front();
+      posiblePoints.pop_front();
+      int collideVal2 = colides(wayTwo, obstacles);
+      if(collideVal2){
+         tempList = shortRouteGraph(wayOne, wayTwo, obstacles.at(collideVal2));
+         for(unsigned i = (tempList.size() - 1); i >= 0; --i){
+            posiblePoints.push_front(tempList.at(i));
+         }
+      }
+      else{
+         if(distanceFt(wayOne, wayTwo) > 30){
+            posiblePoints.push_front(wayTwo);
+            posiblePoints.push_front(midpoint(wayOne, wayTwo));
+            posiblePoints.push_front(wayOne);
+         }
+         else{
+            waypoints.push(waypoint(wayOne.lat, wayOne.log, count++));
+            waypoints.push(waypoint(wayTwo.lat, wayTwo.log, count++));
+         }
+      }
+   }
 }

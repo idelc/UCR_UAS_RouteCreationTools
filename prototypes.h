@@ -2,16 +2,22 @@
 #include <vector>
 #include <string>
 
-struct point{               //specifies a point in space in decimal degrees
-	double lat;
+class point{               //specifies a point in space in decimal degrees
+ public:
+    double lat;
 	double log;
+    point();
+    point(double lati, double lo): lat(lati), log(lo){};
 };
 
-struct waypoint : public point{
-    int sequenceNumber;     //what number are we along route
+class waypoint : public point{
+ public:
+    int sequenceNumber; 
+    waypoint(double lati, double lo, int seq): point(lati, lo), sequenceNumber(seq){};    //what number are we along route
 };
 
-struct obstacle : public point{
+class obstacle : public point{
+ public:
     double radius;
 };
 
@@ -32,6 +38,12 @@ std::vector<obstacle> readObstacles2(std::string);
 
 std::list<point> readPoints(std::string);
 
-bool colides(const point, vector<obstacle>);
+int colides(const point, vector<obstacle>);
 
 void routeCreation(list<point>, list<obstacle>, std::string);
+
+double distanceFt(point, point);
+
+point midpoint(point, point);
+
+vector<point> shortRouteGraph(point, point, obstacle);
