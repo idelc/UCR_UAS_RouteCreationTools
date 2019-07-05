@@ -127,3 +127,7 @@ bool colides(const point toCheck, vector<obstacle> obstacles){
    }
    return false; 
 }
+
+void routeCreation(list<point> posiblePoints, list<obstacle> obstacles, std::string fileName){
+
+}
