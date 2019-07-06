@@ -16,7 +16,7 @@ public:
   // and the cost of the edge to that neighbor.
   list<pair<int, int> > neighbors;
   // Individual vertex's label.
-  string label;
+  int label;
   // Distance the vertex is from the start vertex.
   int distance;
   string color;
@@ -24,7 +24,7 @@ public:
   // BFS traversal. Initially prev is null for all vertices.
   Vertex* prev;
   
-  Vertex():label(""),distance(INT_MAX),color("WHITE"),prev(0){}
+  Vertex():label(-1),distance(INT_MAX),color("WHITE"),prev(0){}
   ~Vertex(){}
 };
 

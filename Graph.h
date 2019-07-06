@@ -24,7 +24,7 @@ public:
   // Default const
   Graph();
   // Reads the graph input file and instantiates a graph object
-  Graph(ifstream&);
+  Graph(list<point> points);
   ~Graph();
   // Outputs graph object to a .dot file, 
   // then makes a system call that calls dotty on 

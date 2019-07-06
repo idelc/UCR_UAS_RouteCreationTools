@@ -9,6 +9,8 @@
 using namespace std;
 
 #include "prototypes.h"
+#include "graphVertex.h"
+#include "Graph.h"
 
 double EXTRA_FEET_TO_ROUTE = 0; // TODO: Add real value to 
                                 // acount for wingspan and turn radius
@@ -160,7 +162,10 @@ point midpoint(point one, point two){
 }
 
 vector<point> shortRouteGraph(point one, point two, obstacle obs){
-
+   list<point> tempPoints = subdivideCircle(obs, 10);
+   tempPoints.push_front(one);
+   tempPoints.push_back(two);
+   Graph(tempPoints);
 }
 
 void routeCreation(list<point> posiblePoints, vector<obstacle> obstacles, string fileName){
@@ -174,13 +179,21 @@ void routeCreation(list<point> posiblePoints, vector<obstacle> obstacles, string
    point wayOne, wayTwo;
    queue<waypoint> waypoints;
    vector<point> tempList;
+   int collideVal2, genColide;
    for(unsigned i = 0; i < posiblePoints.size(); ++i){
       wayOne = posiblePoints.front();
       posiblePoints.pop_front();
       wayTwo = posiblePoints.front();
       posiblePoints.pop_front();
-      int collideVal2 = colides(wayTwo, obstacles);
+      collideVal2 = colides(wayTwo, obstacles);
       if(collideVal2){
+         for (list<point>::iterator it = posiblePoints.begin(); it != posiblePoints.end(); ++it){
+            genColide = colides(*it, obstacles);
+            if(!genColide){
+               wayTwo = *it;
+               break;
+            }
+         }
          tempList = shortRouteGraph(wayOne, wayTwo, obstacles.at(collideVal2));
          for(unsigned i = (tempList.size() - 1); i >= 0; --i){
             posiblePoints.push_front(tempList.at(i));
@@ -198,4 +211,6 @@ void routeCreation(list<point> posiblePoints, vector<obstacle> obstacles, string
          }
       }
    }
+
+   // TODO: Write file implementation here
 }

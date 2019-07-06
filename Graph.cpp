@@ -6,35 +6,25 @@
 using namespace std;
 
 #include "Graph.h"
+#include "prototypes.h"
 
-Graph::Graph(ifstream& read){
-    int numNames = 0;
-    int numRelations = 0;
-    read >> numNames >> numRelations;
+Graph::Graph(list<point> points){
+    vector<point> easyAcc;
+    int numNames = points.size();
+    int numRelations = ((points.size() - 2) * 4) + 4;
     vertices.resize(numNames);
+    int cntr = 0;
     string name1, name2;
     for(unsigned i = 0; i < vertices.size(); ++i){
-        read >> name1;
-        vertices.at(i).label = name1;
+        vertices.at(i).label = cntr++;
     }
-    int save1 = -1, save2 = -1, weight = -1;
-
-    while(read >> name1 >> name2 >> weight){
-        for(unsigned j = 0; j < vertices.size(); j++){
-            if(name1 == vertices.at(j).label){
-                save1 = j;
-            }
-            if(name2 == vertices.at(j).label){
-                save2 = j;
-            }
-        }
-        if(save1 == -1 || save2 == -2){
-            exit(1);
-        }
-        else{
-            vertices.at(save1).neighbors.push_back(pair<int,int>(save2,weight));
-        }
+    for (list<point>::iterator it = points.begin(); it != points.end(); ++it){
+        easyAcc.push_back(*it);
     }
+    vertices.at(1).neighbors.push_back(pair<int,int>(points.size() - 2, distanceFt(easyAcc.at(1),easyAcc.at(points.size() - 2))));
+    vertices.at(points.size() - 2).neighbors.push_back(pair<int,int>(1, distanceFt(easyAcc.at(1),easyAcc.at(points.size() - 2))));
+    for(unsigned i = 1; i < (points.size() - 1); ++i) // finish this loop
+         
 }
 
 void Graph::output_graph(const string & nameOfFile){
