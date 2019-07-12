@@ -6,14 +6,15 @@ class point{               //specifies a point in space in decimal degrees
  public:
     double lat;
 	double log;
+    double height;
     point();
-    point(double lati, double lo): lat(lati), log(lo){};
+    point(double lati, double lo, double hi = 0): lat(lati), log(lo){};
 };
 
 class waypoint : public point{
  public:
     int sequenceNumber; 
-    waypoint(double lati, double lo, int seq): point(lati, lo), sequenceNumber(seq){};    //what number are we along route
+    waypoint(double lati, double lo, int seq, double hi = 0): point(lati, lo, hi), sequenceNumber(seq){};    //what number are we along route
 };
 
 class obstacle : public point{

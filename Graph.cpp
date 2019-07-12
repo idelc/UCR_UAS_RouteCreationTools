@@ -23,8 +23,21 @@ Graph::Graph(list<point> points){
     }
     vertices.at(1).neighbors.push_back(pair<int,int>(points.size() - 2, distanceFt(easyAcc.at(1),easyAcc.at(points.size() - 2))));
     vertices.at(points.size() - 2).neighbors.push_back(pair<int,int>(1, distanceFt(easyAcc.at(1),easyAcc.at(points.size() - 2))));
-    for(unsigned i = 1; i < (points.size() - 1); ++i) // finish this loop
-         
+    for(unsigned i = 1; i < (points.size() - 2); ++i){ 
+        vertices.at(i).neighbors.push_back(pair<int,int>(i+1, distanceFt(easyAcc.at(i),easyAcc.at(i+1))));
+        vertices.at(i+1).neighbors.push_back(pair<int,int>(i, distanceFt(easyAcc.at(i),easyAcc.at(i+1))));        
+    }
+    unsigned min1 = 0, min2 = 0;
+    double minVal1 = INT_MAX, minVal2 = INT_MAX;
+    for(unsigned i = 1; i < (points.size() - 2); ++i){
+        // TODO: write code to match first and last points to closest point
+        if(distanceFt(easyAcc.at(0), easyAcc.at(i)) < minVal1){
+            min1 = i;
+        }
+        if(distanceFt(easyAcc.at(easyAcc.size()-1),easyAcc.at(i)) < minVal2){
+            min2 = i;
+        }
+    }
 }
 
 void Graph::output_graph(const string & nameOfFile){

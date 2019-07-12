@@ -131,7 +131,7 @@ int colides(const point toCheck, vector<obstacle> obstacles){
          return i;
       }
    }
-   return 0; 
+   return -1; 
 }
 
 double distanceFt(point one, point two){
@@ -185,25 +185,25 @@ void routeCreation(list<point> posiblePoints, vector<obstacle> obstacles, string
       posiblePoints.pop_front();
       wayTwo = posiblePoints.front();
       posiblePoints.pop_front();
-      collideVal2 = colides(wayTwo, obstacles);
-      if(collideVal2){
-         for (list<point>::iterator it = posiblePoints.begin(); it != posiblePoints.end(); ++it){
-            genColide = colides(*it, obstacles);
-            if(!genColide){
-               wayTwo = *it;
-               break;
-            }
-         }
-         tempList = shortRouteGraph(wayOne, wayTwo, obstacles.at(collideVal2));
-         for(unsigned i = (tempList.size() - 1); i >= 0; --i){
-            posiblePoints.push_front(tempList.at(i));
-         }
-      }
-      else{
-         if(distanceFt(wayOne, wayTwo) > 30){
+      if(distanceFt(wayOne, wayTwo) > 55){
             posiblePoints.push_front(wayTwo);
             posiblePoints.push_front(midpoint(wayOne, wayTwo));
             posiblePoints.push_front(wayOne);
+      }
+      else{
+         collideVal2 = colides(wayTwo, obstacles);
+         if(collideVal2 == -1){
+            for (list<point>::iterator it = posiblePoints.begin(); it != posiblePoints.end(); ++it){
+               genColide = colides(*it, obstacles);
+               if(genColide == -1){
+                  wayTwo = *it;
+                  break;
+               }
+            }
+            tempList = shortRouteGraph(wayOne, wayTwo, obstacles.at(collideVal2));
+            for(unsigned i = 0; i < tempList.size(); ++i){
+               waypoints.push(waypoint(tempList.at(i).lat, tempList.at(i).log, count++));
+            }
          }
          else{
             waypoints.push(waypoint(wayOne.lat, wayOne.log, count++));
