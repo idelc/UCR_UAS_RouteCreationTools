@@ -7,8 +7,9 @@ class point{               //specifies a point in space in decimal degrees
     double lat;
 	double log;
     double height;
+    bool crit;
     point();
-    point(double lati, double lo, double hi = 0): lat(lati), log(lo){};
+    point(double lati, double lo, double hi = 0): lat(lati), log(lo), crit(false){};
 };
 
 class waypoint : public point{

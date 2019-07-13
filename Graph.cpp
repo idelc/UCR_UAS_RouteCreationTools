@@ -28,16 +28,23 @@ Graph::Graph(list<point> points){
         vertices.at(i+1).neighbors.push_back(pair<int,int>(i, distanceFt(easyAcc.at(i),easyAcc.at(i+1))));        
     }
     unsigned min1 = 0, min2 = 0;
-    double minVal1 = INT_MAX, minVal2 = INT_MAX;
+    double minVal1 = INT_MAX, minVal2 = INT_MAX, temp;
     for(unsigned i = 1; i < (points.size() - 2); ++i){
         // TODO: write code to match first and last points to closest point
-        if(distanceFt(easyAcc.at(0), easyAcc.at(i)) < minVal1){
+        temp = distanceFt(easyAcc.at(0), easyAcc.at(i));
+        if(temp < minVal1){
             min1 = i;
+            
         }
-        if(distanceFt(easyAcc.at(easyAcc.size()-1),easyAcc.at(i)) < minVal2){
+        temp = distanceFt(easyAcc.at(easyAcc.size()-1),easyAcc.at(i));
+        if(temp < minVal2){
             min2 = i;
         }
     }
+    vertices.at(0).neighbors.push_back(pair<int,int>(min1, distanceFt(easyAcc.at(0), easyAcc.at(min1))));
+    vertices.at(easyAcc.size()-1).neighbors.push_back(pair<int,int>(min2, distanceFt(easyAcc.at(easyAcc.size()-1),easyAcc.at(min2))));
+    vertices.at(min1).neighbors.push_back(pair<int,int>(0, distanceFt(easyAcc.at(0), easyAcc.at(min1))));
+    vertices.at(min2).neighbors.push_back(pair<int,int>(easyAcc.size()-1, distanceFt(easyAcc.at(easyAcc.size()-1),easyAcc.at(min2))));
 }
 
 void Graph::output_graph(const string & nameOfFile){

@@ -112,6 +112,7 @@ std::list<point> readPoints(string fileName){
       else{
          temp.log = tempNum;
          first = true;
+         temp.crit = true;
          temps.push_back(temp);
       }
    }
@@ -165,7 +166,8 @@ vector<point> shortRouteGraph(point one, point two, obstacle obs){
    list<point> tempPoints = subdivideCircle(obs, 10);
    tempPoints.push_front(one);
    tempPoints.push_back(two);
-   Graph(tempPoints);
+   Graph shortRouteMaker(tempPoints);
+   shortRouteMaker.bfs();
 }
 
 void routeCreation(list<point> posiblePoints, vector<obstacle> obstacles, string fileName){
@@ -190,7 +192,7 @@ void routeCreation(list<point> posiblePoints, vector<obstacle> obstacles, string
             posiblePoints.push_front(midpoint(wayOne, wayTwo));
             posiblePoints.push_front(wayOne);
       }
-      else{
+      else if (!wayTwo.crit){
          collideVal2 = colides(wayTwo, obstacles);
          if(collideVal2 == -1){
             for (list<point>::iterator it = posiblePoints.begin(); it != posiblePoints.end(); ++it){
