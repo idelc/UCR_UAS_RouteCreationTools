@@ -30,7 +30,6 @@ Graph::Graph(list<point> points){
     unsigned min1 = 0, min2 = 0;
     double minVal1 = INT_MAX, minVal2 = INT_MAX, temp;
     for(unsigned i = 1; i < (points.size() - 2); ++i){
-        // TODO: write code to match first and last points to closest point
         temp = distanceFt(easyAcc.at(0), easyAcc.at(i));
         if(temp < minVal1){
             min1 = i;
@@ -52,7 +51,7 @@ void Graph::output_graph(const string & nameOfFile){
     write << "digraph G {" << endl;
     for(unsigned i = 0; i < vertices.size(); ++i){
         write << "\t" << vertices.at(i).label << "[label = \"" << vertices.at(i).label << ", " << vertices.at(i).distance << "\"];" << endl;
-        for (list<pair<int,int>>::iterator it = vertices.at(i).neighbors.begin();
+        for (list<pair<int,double>>::iterator it = vertices.at(i).neighbors.begin();
         it != vertices.at(i).neighbors.end(); ++it){
             write << "\t" << vertices.at(i).label << " -> ";
             write << vertices.at(it->first).label << endl;
@@ -73,7 +72,7 @@ void Graph::bfs(){
     while(!nodes.empty()){ 
         Vertex u = nodes.front();
         nodes.pop();
-        for (list<pair<int,int>>::iterator it = u.neighbors.begin();
+        for (list<pair<int,double>>::iterator it = u.neighbors.begin();
         it != u.neighbors.end(); ++it){
            if(vertices.at(it->first).color == "WHITE"){
                vertices.at(it->first).color = "GREY"; // (Gray means discovered, but not expanded)
@@ -89,3 +88,29 @@ void Graph::bfs(){
 Graph::~Graph(){
 
 } // No need to input anything here
+
+list<point> Graph::customShortestPath(){
+    double initialVal = this->vertices.at(0).neighbors.front().second; // distance from point before to connecting point
+    int initialPoint = this->vertices.at(0).neighbors.front().first, nextVal = 0;
+    // int exitPoint = this ->vertices
+    double totalDistance1 = initialVal, totalDistance2 = initialVal;
+    bool found = false;
+    list<int> path1;
+    list<int> path2;
+    path1.push_back(0);
+    path1.push_back(initialPoint);
+    path2.push_back(0);
+    path2.push_back(initialPoint);
+    for(unsigned i = initialPoint; (this->vertices.at(i).neighbors.size() != 3) && (i != 0);){ // while a point does not have three connections (the third being the exit point)
+        // nextVal = max(this->vertices.at(i).neighbors.front().first, this->vertices.at(i).neighbors.back().first); // next in line // TODO: Figure out how to find next in line based on connection
+        path1.push_back(nextVal);
+        for(list<pair<int,double>>::iterator it = this->vertices.at(i).neighbors.begin(); (it != this->vertices.at(i).neighbors.end()) && (!found); ++it){
+            if(it->first == nextVal){
+                totalDistance1 += it->second;
+                found = true;
+            }
+        }
+        found = false;
+        i = nextVal;
+    }
+}

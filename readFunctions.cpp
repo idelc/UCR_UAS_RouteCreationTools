@@ -168,6 +168,7 @@ vector<point> shortRouteGraph(point one, point two, obstacle obs){
    tempPoints.push_back(two);
    Graph shortRouteMaker(tempPoints);
    shortRouteMaker.bfs();
+   // TODO: add a receiver before uncommenting: shortRouteMaker.customShortestPath();
 }
 
 void routeCreation(list<point> posiblePoints, vector<obstacle> obstacles, string fileName){

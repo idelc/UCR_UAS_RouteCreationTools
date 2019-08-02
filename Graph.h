@@ -37,6 +37,8 @@ public:
   // the vertex is from the start vertex. You can 
   // find the pseudo code for BFS on graphs.pdf
   void bfs();
+
+  list<point> customShortestPath();
 };
 
 #endif /* GRAPH_H_ */

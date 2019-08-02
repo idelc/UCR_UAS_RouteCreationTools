@@ -10,11 +10,11 @@ using namespace std;
 
 class Vertex {
 public:
-  // An STL list of STL pairs. For each int,int pair, 
-  // the integer values are the neighboring vertex's
+  // An STL list of STL pairs. For each int,double pair, 
+  // the integer value is the neighboring vertex's
   // position in the graph object's vector vertices 
-  // and the cost of the edge to that neighbor.
-  list<pair<int, int> > neighbors;
+  // and the double is the cost of the edge to that neighbor.
+  list<pair<int, double> > neighbors;
   // Individual vertex's label.
   int label;
   // Distance the vertex is from the start vertex.
